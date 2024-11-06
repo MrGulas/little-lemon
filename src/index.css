@@ -2,9 +2,30 @@
     padding: 0;
 }
 
+.container {
+    width: 80%;
+    max-width: 881px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+}
+
+.background {
+    position: absolute;
+    top: 127px;
+    left: 0;
+    width: 100vw;
+    height: 406px;
+    background-color: #495E57;
+    z-index: -1;
+  }
+
 .topNavigation {
     display: flex;
     justify-content: center;
+    font-family: Karla;
+    font-weight: medium;
+    font-size: 20px;
 }
 
 .topNavigation img {
@@ -23,9 +44,135 @@
 
 a {
     text-decoration: none;
+    color: black;
 }
 
 footer {
     display: flex;
     justify-content: space-around;
+}
+
+.call-to-action {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 44px;
+}
+
+.cta_content h2 {
+    color: #F4CE14;
+}
+
+.cta_content h3 {
+    color: white;
+    font-size: 32px;
+    font-family: Markazi;
+    font-weight: 400;
+    margin: 0;
+}
+
+.cta_content p {
+    font-family: Karla;
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 150%;
+}
+
+.cta_content button {
+    background-color:#F4CE14;
+    min-height: 60px;
+    min-width: 200px;
+    border-radius: 16px;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: Karla;
+}
+
+.cta_image {
+    padding-top: 23px;
+    margin-bottom: -49px;
+}
+
+.cta_content h2 {
+    font-family: Markazi;
+    font-weight: 500;
+    font-size: 56px;
+    margin-bottom: 0;
+}
+
+.specials {
+    padding-top: 50px;
+}
+
+.specials h2 {
+    font-size: 40px;
+    font-weight: medium;
+    font-style: Karla;
+}
+
+.specials h3 {
+    font-family: Markazi;
+    font-weight: medium;
+    font-size: 24px;
+    margin: 0;
+    line-height: 90%;
+}
+
+.card_content p {
+    font-family: Karla;
+    font-size: 16;
+    font-weight: regular;
+}
+
+.card_header p {
+    font-family: Karla;
+    font-weight: bold;
+    font-size: 16px;
+    color: #EE9972;
+}
+
+.specials ul {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+
+}
+
+.specials li, .specials img {
+    max-width: 264px;
+}
+
+.specials li:not(:first-child) {
+    padding-left: 34px;
+}
+
+.card {
+    background-color: #EDEFEE;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+
+}
+
+.card_content {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    margin-right: 10px;
+    min-height: 254px;
+}
+
+.order {
+    margin-top: auto;
+    padding-bottom: 10px;
+    font-weight: bold;
+}
+
+.order img {
+    margin-left: 10px;
+}
+
+.card_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
