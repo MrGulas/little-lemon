@@ -1,5 +1,5 @@
-* {
-    padding: 0;
+body {
+    margin: 0;
 }
 
 .container {
@@ -23,9 +23,12 @@
 .topNavigation {
     display: flex;
     justify-content: center;
+    align-items: center;
     font-family: Karla;
     font-weight: medium;
     font-size: 20px;
+    min-height: 128px;
+    margin: 0;
 }
 
 .topNavigation img {
@@ -59,6 +62,7 @@ footer {
 }
 
 .cta_content h2 {
+    margin: 0;
     color: #F4CE14;
 }
 
@@ -108,6 +112,7 @@ footer {
     font-size: 40px;
     font-weight: medium;
     font-style: Karla;
+    margin: 0;
 }
 
 .specials h3 {
@@ -175,4 +180,69 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+
+.testimonials h2 {
+    text-align: center;
+    font-size: 40px;
+    font-family: Karla;
+    font-weight: regular;
+    color: #F4CE14;
+    margin: 0;
+}
+
+.testimonials ul {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 268px;
+}
+
+.testimonials li {
+    display: flex;
+    flex-direction: column;
+    padding-left: 18px;
+    list-style: none;
+    max-width: 197px;
+    max-height: 178px;
+    background-color: white;
+    border-radius: 16px;
+}
+
+.testimonials img {
+    min-height: 32px;
+    margin-right: 8px;
+}
+
+.testimonials p {
+    margin: 0px;
+}
+
+.stars {
+    padding-bottom: 21px;
+}
+
+.testimonials .content {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: bold;
+    font-family: Karla;
+    padding-bottom: 20px;
+}
+
+.review {
+    font-size: 12px;
+    font-weight: regular;
+    font-family: Karla;
+}
+
+.backgroundTestimonials {
+    position: absolute;
+    top: 1247px;
+    left: 0;
+    width: 100vw;
+    height: 406px;
+    background-color: #495E57;
+    z-index: -1;
 }

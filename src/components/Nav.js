@@ -5,7 +5,7 @@ import Homepage from './Homepage';
 
 const Nav = () => {
     return (
-                <nav className='topNavigation'>
+        <nav className='topNavigation'>
             <img src={logo} alt=""></img>
             <ul>
                 <Link to="/">Homepage</Link>
