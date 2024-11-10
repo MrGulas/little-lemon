@@ -68,9 +68,9 @@ footer {
 
 .cta_content h3 {
     color: white;
-    font-size: 32px;
+    font-size: 18px;
     font-family: Markazi;
-    font-weight: 400;
+    font-weight: medium;
     margin: 0;
 }
 
@@ -99,8 +99,8 @@ footer {
 
 .cta_content h2 {
     font-family: Markazi;
-    font-weight: 500;
-    font-size: 56px;
+    font-weight: regular;
+    font-size: 40px;
     margin-bottom: 0;
 }
 
@@ -110,15 +110,15 @@ footer {
 
 .specials h2 {
     font-size: 40px;
-    font-weight: medium;
-    font-style: Karla;
+    font-weight: regular;
+    font-style: Markazi;
     margin: 0;
 }
 
 .specials h3 {
-    font-family: Markazi;
+    font-family: Karla;
     font-weight: medium;
-    font-size: 24px;
+    font-size: 18px;
     margin: 0;
     line-height: 90%;
 }
@@ -187,8 +187,8 @@ footer {
     padding-top: 102px;
     text-align: center;
     font-size: 40px;
-    font-family: Karla;
-    font-weight: 400;
+    font-family: Markazi;
+    font-weight: regular;
     color: #F4CE14;
     margin: 0;
 }
@@ -251,4 +251,62 @@ footer {
 .chicago .content {
     display: flex;
     flex-direction: column;
+    max-width: 373px;
+    padding-right: 49px;
+}
+
+.chicago {
+    display: flex;
+    flex-direction: row;
+}
+
+.chicago h2 {
+    font-family: Markazi;
+    font-size: 40px;
+    font-weight: regular;
+    margin: 0;
+}
+
+.chicago h3 {
+    font-family: Markazi;
+    font-style: 18px;
+    font-weight: medium;
+    margin: 0;
+}
+.chicago p {
+    font-family: Karla;
+    font-size: 16px;
+    font-weight: regular;
+}
+
+footer {
+    background-color:#495E57;
+    color: white;
+    height: 417px;
+    display: flex;
+    align-items: center;
+}
+
+footer img {
+    max-height: 279px;
+}
+
+li {
+    list-style: none;
+}
+
+h2, h3 {
+    margin: 0;
+}
+
+footer p, footer a {
+    font-family: Karla;
+    font-size: 16px;
+    font-weight: regular;
+    color: white;
+}
+
+footer p, footer ul {
+    margin: 0;
+    padding: 0;
 }
