@@ -3,7 +3,7 @@ body {
 }
 
 .container {
-    width: 80%;
+    width: 100%;
     max-width: 881px;
     margin: 0 auto;
     padding: 20px;
@@ -184,10 +184,11 @@ footer {
 
 
 .testimonials h2 {
+    padding-top: 102px;
     text-align: center;
     font-size: 40px;
     font-family: Karla;
-    font-weight: regular;
+    font-weight: 400;
     color: #F4CE14;
     margin: 0;
 }
@@ -201,10 +202,10 @@ footer {
 .testimonials li {
     display: flex;
     flex-direction: column;
-    padding-left: 18px;
+    padding-left: 10px;
     list-style: none;
-    max-width: 197px;
-    max-height: 178px;
+    width: 197px;
+    height: 178px;
     background-color: white;
     border-radius: 16px;
 }
@@ -242,7 +243,12 @@ footer {
     top: 1247px;
     left: 0;
     width: 100vw;
-    height: 406px;
+    height: 590px;
     background-color: #495E57;
     z-index: -1;
+}
+
+.chicago .content {
+    display: flex;
+    flex-direction: column;
 }
