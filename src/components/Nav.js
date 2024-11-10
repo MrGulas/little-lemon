@@ -8,10 +8,10 @@ const Nav = () => {
                 <nav className='topNavigation'>
             <img src={logo} alt=""></img>
             <ul>
-                <Link to="/">Home</Link>
+                <li><Link to="/">Home</Link></li>
                 <li><a href="#">About</a></li>
                 <li><a href="#">Menu</a></li>
-                <li><a href="#">Reservations</a></li>
+                <li><Link to="/booking">Reservation</Link></li>
                 <li><a href="#">Order Online</a></li>
                 <li><a href="#">Login</a></li>
             </ul>

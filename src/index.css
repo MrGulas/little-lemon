@@ -82,7 +82,7 @@ footer {
     line-height: 150%;
 }
 
-.cta_content button {
+.cta_content button, button {
     background-color:#F4CE14;
     min-height: 60px;
     min-width: 200px;
@@ -260,7 +260,7 @@ footer {
     flex-direction: row;
 }
 
-.chicago h2 {
+.chicago h2, .booking h2 {
     font-family: Markazi;
     font-size: 40px;
     font-weight: regular;
@@ -273,7 +273,7 @@ footer {
     font-weight: medium;
     margin: 0;
 }
-.chicago p {
+.chicago p, .booking p {
     font-family: Karla;
     font-size: 16px;
     font-weight: regular;
@@ -309,4 +309,16 @@ footer p, footer a {
 footer p, footer ul {
     margin: 0;
     padding: 0;
+}
+
+.form {
+    font-family: Karla;
+    font-weight: regular;
+    font-size: 16px;
+}
+
+.booking {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
