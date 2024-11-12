@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const BookingForm = () => {
-  const [times, setTimes] = useState([]);
+export default function BookingForm() {
+  const [times, setTimes] = useState([]); // Holds available times
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -11,18 +11,62 @@ const BookingForm = () => {
     occasion: '',
   });
 
-  const initializeTimes = () => ['12:00 PM', '01:00 PM', '02:00 PM'];
+  // Declare fetchAPI and submitAPI inside the component scope
+  const [apiLoaded, setApiLoaded] = useState(false); // Track if the API script is loaded
 
-  const updateTimes = (newTimes) => {
-    setTimes(newTimes);
+  const fetchAvailableTimes = (date) => {
+    // Check if fetchAPI is available after the script is loaded
+    if (window.fetchAPI) {
+      const availableTimes = window.fetchAPI(new Date(date)); // Call fetchAPI with the selected date
+      setTimes(availableTimes); // Set the available times in state
+    } else {
+      console.error('fetchAPI is not defined');
+    }
   };
+
+  // Load the API script dynamically on component mount
+  useEffect(() => {
+    const loadScript = (url) => {
+      return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = url;
+        script.onload = () => resolve();
+        script.onerror = () => reject(new Error(`Failed to load script: ${url}`));
+        document.body.appendChild(script);
+      });
+    };
+
+    loadScript('https://raw.githubusercontent.com/courseraap/capstone/main/api.js')
+      .then(() => {
+        console.log('API script loaded successfully');
+        setApiLoaded(true); // Mark the script as loaded
+      })
+      .catch((error) => {
+        console.error('Error loading the API script:', error);
+      });
+  }, []); // Empty dependency array to run this effect only once when the component mounts
+
+  // Update available times when the selected date changes
+  useEffect(() => {
+    if (formData.resDate && apiLoaded) {
+      fetchAvailableTimes(formData.resDate); // Fetch available times based on the selected date
+    }
+  }, [formData.resDate, apiLoaded]); // Add apiLoaded to the dependency array
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('Form Submitted', formData);
+    // Ensure submitAPI is loaded and available
+    if (window.submitAPI) {
+      const result = window.submitAPI(formData); // submitAPI should be available after the script is loaded
+      if (result) {
+        console.log('Reservation successfully submitted', formData);
+      } else {
+        console.log('There was an issue with the reservation');
+      }
+    } else {
+      console.error('submitAPI is not defined');
+    }
   };
-
-  const initialTimes = initializeTimes();
 
   return (
     <div>
@@ -54,7 +98,7 @@ const BookingForm = () => {
           value={formData.resTime}
           onChange={(e) => setFormData({ ...formData, resTime: e.target.value })}
         >
-          {initialTimes.map((time, index) => (
+          {times.map((time, index) => (
             <option key={index} value={time}>
               {time}
             </option>
@@ -64,6 +108,7 @@ const BookingForm = () => {
         <input
           id="guests"
           type="number"
+          min="1"
           value={formData.guests}
           onChange={(e) => setFormData({ ...formData, guests: e.target.value })}
         />
@@ -80,6 +125,4 @@ const BookingForm = () => {
       </form>
     </div>
   );
-};
-
-export default BookingForm;
+}

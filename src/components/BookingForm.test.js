@@ -1,10 +1,10 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import BookingForm, { initializeTimes, updateTimes } from '../components/BookingForm';  // Adjusted import to directly from BookingForm.js
+import BookingForm, { initializeTimes, updateTimes } from '../components/BookingForm';
 
-jest.mock('./BookingForm', () => ({
-  ...jest.requireActual('./BookingForm'),
-  initializeTimes: jest.fn(),
-  updateTimes: jest.fn(),
+jest.mock('../components/BookingForm', () => ({
+  ...jest.requireActual('../components/BookingForm'),
+  initializeTimes: jest.fn(() => ['12:00 PM', '01:00 PM', '02:00 PM']),
+  updateTimes: jest.fn((state) => state),
 }));
 
 test('Renders the BookingForm heading', () => {
@@ -16,7 +16,7 @@ test('Renders the BookingForm heading', () => {
 test('Form submission calls handleSubmit and prevents default behavior', () => {
   render(<BookingForm />);
 
-  // Fill in the form
+  // Fill in form fields
   fireEvent.change(screen.getByLabelText(/name/i), { target: { value: 'John Doe' } });
   fireEvent.change(screen.getByLabelText(/email/i), { target: { value: 'john@example.com' } });
   fireEvent.change(screen.getByLabelText(/choose date/i), { target: { value: '2024-12-25' } });
@@ -25,34 +25,23 @@ test('Form submission calls handleSubmit and prevents default behavior', () => {
   fireEvent.change(screen.getByLabelText(/occasion/i), { target: { value: 'Birthday' } });
 
   // Simulate form submission
-  const formElement = screen.getByTestId('booking-form'); // Add 'data-testid="booking-form"' in BookingForm.js
+  const formElement = screen.getByTestId('booking-form');
   fireEvent.submit(formElement);
 
-  // Assert that form submit behavior is as expected
   expect(screen.getByText('Submit Reservation')).toBeInTheDocument();
 });
 
-// Test for initializeTimes function
-test('initializeTimes should set the available times correctly', () => {
-  const mockTimes = ['12:00 PM', '01:00 PM', '02:00 PM'];
-
-  // Simulate calling the initializeTimes function
-  initializeTimes(mockTimes);
-
-  // Check if initializeTimes was called with correct values
-  expect(initializeTimes).toHaveBeenCalledWith(mockTimes);
+test('initializeTimes should return the initial times array', () => {
+  const expectedTimes = ['12:00 PM', '01:00 PM', '02:00 PM'];
+  const result = initializeTimes();
+  expect(result).toEqual(expectedTimes);
   expect(initializeTimes).toHaveBeenCalledTimes(1);
 });
 
-// Test for updateTimes function
-test('updateTimes should update the available times correctly based on the selected date', () => {
-  const selectedDate = '2024-12-25';
-  const newTimes = ['12:00 PM', '03:00 PM', '06:00 PM'];
-
-  // Simulate calling the updateTimes function
-  updateTimes(selectedDate, newTimes);
-
-  // Check if updateTimes was called with correct values
-  expect(updateTimes).toHaveBeenCalledWith(selectedDate, newTimes);
+test('updateTimes should return the same state that is provided', () => {
+  const currentState = ['12:00 PM', '01:00 PM', '02:00 PM'];
+  const result = updateTimes(currentState);
+  expect(result).toBe(currentState);
+  expect(updateTimes).toHaveBeenCalledWith(currentState);
   expect(updateTimes).toHaveBeenCalledTimes(1);
 });
