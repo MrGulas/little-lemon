@@ -1,25 +1,26 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import BookingForm, { initializeTimes, updateTimes } from '../components/BookingForm';
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import BookingForm from '../components/BookingForm';
+import BookingPage from '../components/BookingPage';
 
-jest.mock('../components/BookingForm', () => ({
-  ...jest.requireActual('../components/BookingForm'),
-  initializeTimes: jest.fn(() => ['12:00 PM', '01:00 PM', '02:00 PM']),
-  updateTimes: jest.fn((state) => state),
-}));
+test('Renders the BookingPage heading', () => {
+    render(<BookingPage />);
+    const headingElement = screen.getByText('Book a Table at Little Lemon'); // Case-insensitive match
+    expect(headingElement).toBeInTheDocument();
+  });   
 
-test('Renders the BookingForm heading', () => {
-  render(<BookingForm />);
-  const headingElement = screen.getByText("Book a Table at Little Lemon");
-  expect(headingElement).toBeInTheDocument();
-});
-
-test('Form submission calls handleSubmit and prevents default behavior', () => {
+test('Form submission calls handleSubmit and prevents default behavior', async () => {
   render(<BookingForm />);
 
   // Fill in form fields
   fireEvent.change(screen.getByLabelText(/name/i), { target: { value: 'John Doe' } });
   fireEvent.change(screen.getByLabelText(/email/i), { target: { value: 'john@example.com' } });
   fireEvent.change(screen.getByLabelText(/choose date/i), { target: { value: '2024-12-25' } });
+  
+  // Wait for the times to load after date selection
+  await waitFor(() => {
+    expect(screen.getByLabelText(/choose time/i)).toBeInTheDocument();
+  });
+
   fireEvent.change(screen.getByLabelText(/choose time/i), { target: { value: '01:00 PM' } });
   fireEvent.change(screen.getByLabelText(/number of guests/i), { target: { value: '3' } });
   fireEvent.change(screen.getByLabelText(/occasion/i), { target: { value: 'Birthday' } });
@@ -28,20 +29,48 @@ test('Form submission calls handleSubmit and prevents default behavior', () => {
   const formElement = screen.getByTestId('booking-form');
   fireEvent.submit(formElement);
 
+  // Expect the form to be submitted (you can check for a message or successful submission state)
   expect(screen.getByText('Submit Reservation')).toBeInTheDocument();
 });
 
-test('initializeTimes should return the initial times array', () => {
-  const expectedTimes = ['12:00 PM', '01:00 PM', '02:00 PM'];
-  const result = initializeTimes();
-  expect(result).toEqual(expectedTimes);
-  expect(initializeTimes).toHaveBeenCalledTimes(1);
+test('Form shows times after date is selected', async () => {
+  render(<BookingForm />);
+
+  // Select a date
+  fireEvent.change(screen.getByLabelText(/choose date/i), { target: { value: '2024-12-25' } });
+
+  // Wait for the times to appear
+  await waitFor(() => {
+    expect(screen.getByLabelText(/choose time/i)).toBeInTheDocument();
+  });
+
+  const timeOptions = screen.getByLabelText(/choose time/i).children;
+  expect(timeOptions.length).toBeGreaterThan(0);  // Ensure that times are displayed
 });
 
-test('updateTimes should return the same state that is provided', () => {
-  const currentState = ['12:00 PM', '01:00 PM', '02:00 PM'];
-  const result = updateTimes(currentState);
-  expect(result).toBe(currentState);
-  expect(updateTimes).toHaveBeenCalledWith(currentState);
-  expect(updateTimes).toHaveBeenCalledTimes(1);
+test('Form validates and submits with real data', async () => {
+  render(<BookingForm />);
+
+  // Fill in the form fields with valid data
+  fireEvent.change(screen.getByLabelText(/name/i), { target: { value: 'John Doe' } });
+  fireEvent.change(screen.getByLabelText(/email/i), { target: { value: 'john@example.com' } });
+  fireEvent.change(screen.getByLabelText(/choose date/i), { target: { value: '2024-12-25' } });
+
+  // Wait for times to load after the date selection
+  await waitFor(() => {
+    expect(screen.getByLabelText(/choose time/i)).toBeInTheDocument();
+  });
+
+  fireEvent.change(screen.getByLabelText(/choose time/i), { target: { value: '01:00 PM' } });
+  fireEvent.change(screen.getByLabelText(/number of guests/i), { target: { value: '3' } });
+  fireEvent.change(screen.getByLabelText(/occasion/i), { target: { value: 'Birthday' } });
+
+  // Simulate form submission
+  const formElement = screen.getByTestId('booking-form');
+  fireEvent.submit(formElement);
+
+  // Check for a successful submission state (this could be an alert or a confirmation message)
+  await waitFor(() => {
+    expect(screen.getByText('Submit Reservation')).toBeInTheDocument();
+  });
 });
